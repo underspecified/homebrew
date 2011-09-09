@@ -8,7 +8,7 @@ class Geniatagger < Formula
   def install
     # hardwire the path to the models
     ['main.cpp', 'morph.cpp', 'namedentity.cpp'].each { 
-      |f| inreplace f, '"./', "\"#{lib}"
+      |f| inreplace f, '"./', "\"#{lib}/"
     }        
 
     system "make geniatagger"
