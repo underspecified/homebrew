@@ -11,6 +11,8 @@ class MecabNaistJdic < Formula
     args = ["--disable-debug", "--disable-dependency-tracking", "--prefix=#{prefix}"]
     args << ARGV.find(Proc.new {"--with-charset=utf8"}) { |arg| /^--with-charset/.match(arg) }
     system "./configure", *args
+    inreplace 'Makefile.am', '$(DESTDIR)', '/usr/local/Cellar/mecab/0.98'
+    system "/usr/bin/autoreconf"
     system "make install"
   end
 end
