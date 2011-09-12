@@ -6,7 +6,8 @@ class StanfordCorenlp < Formula
   md5 'e484404af41288cfadff91ff725bf6cb'
 
   def install
-    prefix.install Dir['*']
-    libexec.install Dir['*']
+    prefix.install Dir['LIBRARY-LICENSES', 'LICENSE.txt', 'README.txt', ]
+    libexec.install Dir['CoreNLP-to-HTML.xsl', 'fastutil.jar', 'jgraph.jar', 'jgrapht.jar', 'xom.jar',
+			'stanford-corenlp-2011-06-19.jar', 'stanford-corenlp-models-2011-06-19.jar']
   end
 end

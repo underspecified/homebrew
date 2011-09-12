@@ -14,8 +14,8 @@ class Gdep < Formula
     }
 
     system "make gdep"
+    prefix.install Dir['README', 'LICENSE']
     bin.install Dir['gdep']
-    #lib.install Dir['genia.mod', 'models_*', 'morphdic']
-    lib.install Dir['*']
+    lib.install Dir['genia.mod', 'models_*', 'morphdic']
   end
 end

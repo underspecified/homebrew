@@ -6,7 +6,7 @@ class Trove < Formula
   md5 '92cb2b423fb9ed9d8506a1b7fa4932b4'
 
   def install
-    doc.install Dir['javadocs']
-    libexec.install Dir['libexec/*']
+    prefix.install Dir['*.txt', 'javadocs']
+    libexec.install Dir['lib/junit.jar', 'lib/trove-2.0.4.jar']
   end
 end
