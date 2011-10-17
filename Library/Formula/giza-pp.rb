@@ -12,7 +12,7 @@ class GizaPp < Formula
     system "mv GIZA++-v2/README #{prefix}/README.GIZA++"
     system "mv mkcls-v2/LICENSE #{prefix}/LICENSE.mkcls"
     system "mv mkcls-v2/README #{prefix}/README.mkcls"
-    bin.install Dir["GIZA++-v2/GIZA++", "GIZA++-v2/trainGIZA++.sh", "mkcls-v2/mkcls"]
+    bin.install Dir["GIZA++-v2/GIZA++", "GIZA++-v2/trainGIZA++.sh", "GIZA++-v2/*.out", "mkcls-v2/mkcls"]
   end
 
   def test
