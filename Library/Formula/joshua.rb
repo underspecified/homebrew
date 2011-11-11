@@ -10,12 +10,12 @@ class Joshua < Formula
   depends_on 'swig'
 
   def install
-    system "JOSHUA=JOSHUA_HOME=$(PWD) SRILM=/usr/local/bin ant jar"
+    system "JOSHUA=$(PWD) JOSHUA_HOME=$(PWD) SRILM=/usr/local/bin ant jar"
     #libexec.install Dir["bin/joshua.jar"]
     prefix.install Dir["*"]
   end
 
   def test
-    system "JOSHUA=JOSHUA_HOME=$(PWD) SRILM=/usr/local/bin ant compile"
+    system "JOSHUA=$(PWD) JOSHUA_HOME=$(PWD) SRILM=/usr/local/bin ant compile"
   end
 end
