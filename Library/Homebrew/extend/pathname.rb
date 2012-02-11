@@ -2,14 +2,16 @@ require 'pathname'
 
 # we enhance pathname to make our code more readable
 class Pathname
-  def install src
-    case src
-    when Array
-      src.collect {|src| install_p(src) }
-    when Hash
-      src.collect {|src, new_basename| install_p(src, new_basename) }
-    else
-      install_p(src)
+  def install *sources
+    sources.each do |src|
+      case src
+      when Array
+        src.collect {|src| install_p(src) }
+      when Hash
+        src.collect {|src, new_basename| install_p(src, new_basename) }
+      else
+        install_p(src)
+      end
     end
   end
 
@@ -267,7 +269,7 @@ class Pathname
     unless self.symlink?
       raise "Cannot install info entry for unbrewed info file '#{self}'"
     end
-    system '/usr/bin/install-info', self.to_s, (self.dirname+'dir').to_s
+    system '/usr/bin/install-info', '--quiet', self.to_s, (self.dirname+'dir').to_s
   end
 
   def uninstall_info
