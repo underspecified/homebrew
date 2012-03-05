@@ -257,8 +257,8 @@ def check_access_usr_local
 
   unless Pathname('/usr/local').writable? then <<-EOS.undent
     The /usr/local directory is not writable.
-    Even if this folder was writable when you installed Homebrew, other
-    software may change permissions on this folder. Some versions of the
+    Even if this directory was writable when you installed Homebrew, other
+    software may change permissions on this directory. Some versions of the
     "InstantOn" component of Airfoil are known to do this.
 
     You should probably change the ownership and permissions of /usr/local
@@ -732,9 +732,9 @@ def check_missing_deps
 end
 
 def check_git_status
+  return unless system "/usr/bin/which -s git"
   HOMEBREW_REPOSITORY.cd do
-    cmd = `git status -s Library/Homebrew/ 2> /dev/null`.chomp
-    if system "/usr/bin/which -s git" and File.directory? '.git' and not cmd.empty? then <<-EOS.undent
+    unless `git status -s -- Library/Homebrew/ 2>/dev/null`.chomp.empty? then <<-EOS.undent
       You have uncommitted modifications to Homebrew's core.
       Unless you know what you are doing, you should run:
         cd #{HOMEBREW_REPOSITORY} && git reset --hard
