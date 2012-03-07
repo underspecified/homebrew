@@ -2,12 +2,11 @@ require 'download_strategy'
 require 'formula_support'
 require 'hardware'
 require 'extend/fileutils'
-require 'formula_specialties'
 
 
 # Derive and define at least @url, see Library/Formula for examples
 class Formula
-  include Homebrew::FileUtils
+  include FileUtils
 
   attr_reader :name, :path, :url, :version, :homepage, :specs, :downloader
   attr_reader :standard, :unstable
@@ -727,3 +726,5 @@ private
     end
   end
 end
+
+require 'formula_specialties'
