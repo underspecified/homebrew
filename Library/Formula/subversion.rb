@@ -77,6 +77,9 @@ class Subversion < Formula
     depends_on UniversalSerf.new
   end
 
+  # Building Ruby bindings requires libtool
+  depends_on :libtool if build_ruby?
+
   def options
     [
       ['--java', 'Build Java bindings.'],
