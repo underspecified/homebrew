@@ -6,6 +6,7 @@ class Cabocha < Formula
   md5 '3399873faab9b252fd57e1d48fa1285d'
 
   depends_on 'crf++'
+  depends_on 'mecab'
 
   def install
     ENV["LIBS"] = '-liconv'
