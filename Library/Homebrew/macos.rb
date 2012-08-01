@@ -174,7 +174,7 @@ module MacOS extend self
     # distributed by Apple is also XQuartz, and therefore covered by this method.
     path = app_with_bundle_id(XQUARTZ_BUNDLE_ID) || app_with_bundle_id(APPLE_X11_BUNDLE_ID)
     version = if not path.nil? and path.exist?
-      `mdls -raw -name kMDItemVersion #{path}`.strip
+      `mdls -raw -name kMDItemVersion "#{path}" 2>/dev/null`.strip
     end
   end
 
@@ -269,8 +269,8 @@ module MacOS extend self
   end
 
   def mdfind attribute, id
-    path = `mdfind "#{attribute} == '#{id}'"`.strip
-    Pathname.new(path) unless path.empty?
+    path = `mdfind "#{attribute} == '#{id}'"`.split("\n").first
+    Pathname.new(path) unless path.nil? or path.empty?
   end
 
   def pkgutil_info id
