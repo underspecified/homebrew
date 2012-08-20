@@ -2,9 +2,9 @@ require 'formula'
 
 class Coreutils < Formula
   homepage 'http://www.gnu.org/software/coreutils'
-  url 'http://ftpmirror.gnu.org/coreutils/coreutils-8.17.tar.xz'
-  mirror 'http://ftp.gnu.org/gnu/coreutils/coreutils-8.17.tar.xz'
-  sha256 '4e075a0d238072a5bd079046e1f024dc5e0d9133d43a39c73d0b86b0d1e2c5e5'
+  url 'http://ftpmirror.gnu.org/coreutils/coreutils-8.18.tar.xz'
+  mirror 'http://ftp.gnu.org/gnu/coreutils/coreutils-8.18.tar.xz'
+  sha256 '11dc114374100ac6f56d4b66f588e51d3fe972855466a35a27de7ec67eb2143f'
 
   depends_on 'xz' => :build
 
@@ -12,13 +12,9 @@ class Coreutils < Formula
     system "./configure", "--prefix=#{prefix}", "--program-prefix=g"
     system "make install"
 
-    # set installed binaries
-    commands = coreutils_bins
-
-    # create a gnubin dir that has all the commands without program-prefix
-    (libexec+'gnubin').mkpath
-    commands.each do |cmd|
-      ln_sf "../../bin/g#{cmd}", libexec+"gnubin/#{cmd}"
+    # Symlink all commands into libexec/gnubin without the 'g' prefix
+    coreutils_bins.each do |cmd|
+      (libexec/'gnubin').install_symlink bin/"g#{cmd}" => cmd
     end
   end
 
@@ -33,13 +29,11 @@ class Coreutils < Formula
   end
 
   def coreutils_bins
-    require 'find'
-    bin_path = prefix+'bin'
-    commands = Array.new
-    Find.find(bin_path) do |path|
-      next if path == bin_path or File.basename(path) == '.DS_Store'
-      commands << File.basename(path).sub(/^g/,'')
+    commands = []
+    bin.find do |path|
+      next if path.directory? or path.basename.to_s == '.DS_Store'
+      commands << path.basename.to_s.sub(/^g/,'')
     end
-    return commands.sort
+    commands.sort
   end
 end
