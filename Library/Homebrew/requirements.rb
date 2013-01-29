@@ -8,6 +8,7 @@ class LanguageModuleDependency < Requirement
     @language = language
     @module_name = module_name
     @import_name = import_name || module_name
+    super()
   end
 
   satisfy { quiet_system(*the_test) }
@@ -59,10 +60,11 @@ class X11Dependency < Requirement
 
   env { x11 }
 
-  def initialize(*tags)
+  def initialize(name="x11", *tags)
     tags.flatten!
+    @name = name
     @min_version = tags.shift if /(\d\.)+\d/ === tags.first
-    super
+    super(tags)
   end
 
   satisfy :build_env => false do
@@ -108,6 +110,7 @@ class MPIDependency < Requirement
     @lang_list = lang_list
     @non_functional = []
     @unknown_langs = []
+    super()
   end
 
   def mpi_wrapper_works? compiler
@@ -184,6 +187,7 @@ class ConflictRequirement < Requirement
     @formula = formula
     @name = name
     @opts = opts
+    super()
   end
 
   def message
