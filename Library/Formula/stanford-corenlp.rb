@@ -6,6 +6,8 @@ class StanfordCorenlp < Formula
   md5 'bc34347cb5f0d58aa7c293a2f5190ff2'
   version '1.3.3'
 
+  depends_on 'coreutils'
+
   def patches
     # fix paths in utility script
     DATA
